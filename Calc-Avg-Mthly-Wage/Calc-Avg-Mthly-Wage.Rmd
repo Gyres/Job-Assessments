@@ -1,0 +1,86 @@
+---
+title: "Compute Avg Monthly Wage"
+author: "Ou Yang Yu"
+date: "2024-09-18"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
+```
+
+# Introduction
+
+This is a job position assessment assigned to me by a Singapore public agency.
+
+I am conducting data analysis using 2 datasets containing information about some companies and its employees.
+
+I have to compute the average monthly wage paid by companies of different sizes.
+
+There were no actual csv files provided. The code below is similar to a pseudocode.
+
+## Load Libraries
+
+```{r libraries}
+library(tidyverse)
+
+```
+
+## Read Company and Employees csv files
+
+```{r read-csv}
+# Read the CSV files for companies and employees datasets
+companies <- read.csv("companies.csv")
+employees <- read.csv("employees.csv")
+
+```
+
+## View Dataset
+
+```{r view-dataset}
+# Inspect the first few rows of each dataset to ensure they are loaded correctly
+head(companies)
+head(employees)
+
+```
+
+## Define Company Sizes
+
+```{r define-size}
+# Define firm size based on revenue thresholds
+# Let's assume small companies have revenue < $1,500,000, medium < $2,000,000, and large >= $2,000,000
+companies <- companies %>%
+  mutate(firm_Size = case_when(
+    Revenue < 1500000 ~ "Small",
+    Revenue >= 1500000 & Revenue < 2000000 ~ "Medium",
+    Revenue >= 2000000 ~ "Large"
+  ))
+
+```
+
+## Merge both Datasets
+
+```{r merge-datasets}
+# Merge the two datasets based on Company_Name
+merged_data <- employees %>%
+  left_join(companies, by = "Company_Name")
+
+```
+
+## Calculate Average Monthly Wage
+
+```{r calc-wage}
+# Calculate the average monthly wage for each company size
+average_wage_by_firm_size <- merged_data %>%
+  group_by(firm_Size) %>%
+  summarise(Average_Monthly_Wage = mean(Monthly_Wage, na.rm = TRUE))
+
+```
+
+## Display the Average Monthly Wage Result
+
+```{r display-results}
+# Display results
+print(average_wage_by_firm_size)
+
+```

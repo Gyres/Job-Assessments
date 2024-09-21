@@ -17,7 +17,13 @@ I am conducting data analysis using 2 datasets containing information about some
 
 I have to compute the average monthly wage paid by companies of different sizes.
 
-There were no actual csv files provided. The code below is similar to a pseudocode.
+There were no actual csv files provided.
+
+The Companies dataset have these variables: Company_Name, Date of Incorporation, Revenue, Sector.
+
+The Employees dataset have these variables: Employee_Name, Company_Name, Monthly_Wage
+
+The code below is similar to a pseudocode.
 
 ## Load Libraries
 

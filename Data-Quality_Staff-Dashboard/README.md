@@ -2,12 +2,23 @@
 
 #### Date: 2024-09-19
 
-This is a data analysis assessment assigned to me for a job position with a Singapore public agency.
+This repository contains my submission for a data analysis assessment as part of a job application with a Singapore public agency.
 
-Company ABC has supplied 22 datasets. Each record represents a staff member tapping their access pass at the building’s entry system at a specific time.
+## Task Overview
 
-The Rmd is divided into two parts: the first addresses data quality issues, while the second focuses on dashboard visualisation.
+Analyse the 22 datasets provided by Company ABC, each containing records of staff members tapping their access passes at the building’s entry system, with each record capturing the exact time of entry.
 
-The Rmd output can be viewed in the file "Data-Quality_Staff-Dashboard.md".
+## Objectives
 
-The combined Dashboard can be viewed on Tableau Public, https://public.tableau.com/views/ABC-Staff-Dashboard/Dashboard
+The task involved:
+- Identifying and resolving data quality issues in the 22 datasets.
+- Creating dashboards for end-users.
+
+## RMarkdown Breakdown and Implementation
+The RMarkdown file is structured in two main parts:
+- Data Quality: Identification and resolution of data quality issues.
+- Dashboard Visualisation: Development of dashboards for enhanced data reporting and decision-making.
+
+The RMarkdown output can be viewed in the file "Data-Quality_Staff-Dashboard.md".
+
+The combined dashboard is available on Tableau Public, https://public.tableau.com/views/ABC-Staff-Dashboard/Dashboard

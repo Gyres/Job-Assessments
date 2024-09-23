@@ -1,5 +1,7 @@
 # Company ABC: Data Quality Management and Staff Dashboard Visualisation
 
+## Date: 2024-09-19
+
 This is a data analysis assessment assigned to me for a job position with a Singapore public agency.
 
 Company ABC has supplied 22 datasets. Each record represents a staff member tapping their access pass at the building’s entry system at a specific time.

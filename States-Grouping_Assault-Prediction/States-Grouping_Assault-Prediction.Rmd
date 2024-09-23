@@ -1,0 +1,612 @@
+---
+title: "US States Grouping and Assault Rate Prediction"
+author: "Ou Yang Yu"
+date: "2024-09-20"
+output: github_document
+#output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
+```
+
+# Introduction
+
+This data analysis assessment was assigned as part of a job application with a Singapore public agency.
+
+The assessment includes 8 datasets and 3 data dictionaries that may be utilised for analysis.
+
+The analysis is divided into two sections:
+
+-   The first section involves categorizing US states based on their characteristics.
+
+-   The second section focuses on identifying statistically significant factors that can predict Assault rates.
+
+## Categorise / group the states based on their characteristics
+
+In this analysis, I aim to categorize or group the US states based on their characteristics. I will utilise the provided datasets to perform clustering analysis, which will help us identify patterns and group similar states together.
+
+## Load Libraries
+
+Loading libraries for data manipulation, visualisation, and clustering.
+
+```{r load-libraries}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(broom)       # For tidying model outputs
+library(car)         # For variance inflation factor
+library(ggcorrplot)  # For correlation plots
+
+```
+
+## Reading and Preparing the Data
+
+Read these datasets and merge them to create a dataset for analysis.
+
+The reason for choosing USArrest.csv and USstatex77.csv is because they
+contain numerical variables that are directly relevant to the goal of
+categorising states based on socio-economic characteristics and crime
+rates. Clustering analysis requires numerical variables that quantify
+state characteristics. Categorical variables in other csv datasets could
+bias the clustering results towards existing classifications.
+
+```{r read-csv}
+# Read the necessary datasets from the US_Arrest_Data folder
+USArrest <- read_csv("US_Arrest_Data/USArrest.csv")
+USstatex77 <- read_csv("US_Arrest_Data/USstatex77.csv")
+
+```
+
+## Data Preparation
+
+Clean and merge relevant datasets to create a comprehensive dataset for
+clustering.
+
+```{r data-prep}
+# Ensure the 'State' column is present for merging
+colnames(USArrest)[1] <- "State"
+colnames(USstatex77)[1] <- "State"
+
+# Merge USArrest and USstatex77 datasets
+state_data <- inner_join(USArrest, USstatex77, by = "State")
+
+# View the first few rows
+head(state_data)
+
+```
+
+## Data Cleaning and Selection
+
+Select the relevant numeric variables for clustering and handle any
+missing data.
+
+```{r select-missing}
+# Select numeric variables
+numeric_vars <- state_data %>%
+  select(Murder.x, Assault, UrbanPop, Rape, Population, Income, Illiteracy, `Life Exp`, `HS Grad`, Frost, Area)
+
+# Check for missing values
+sum(is.na(numeric_vars))
+
+```
+
+## Data Normalisation
+
+Normalise the data to ensure all variables contribute equally to the
+analysis.
+
+```{r data-normalise}
+# Scale the numeric variables
+numeric_vars_scaled <- scale(numeric_vars)
+
+```
+
+## Clustering Analysis
+
+### Determining the Optimal Number of Clusters
+
+Use the Elbow method to find the optimal number of clusters for K-means
+clustering.
+
+```{r find-clusters}
+# Calculate total within-cluster sum of squares
+set.seed(123)
+wss <- map_dbl(1:10, function(k){
+  kmeans(numeric_vars_scaled, centers = k, nstart = 10)$tot.withinss
+})
+
+# Plot the Elbow method graph
+qplot(1:10, wss, geom = "line") +
+  geom_point() +
+  xlab("Number of Clusters K") +
+  ylab("Total Within-Clusters Sum of Squares") +
+  ggtitle("Elbow Method for Determining Optimal K")
+
+```
+
+### K-means Clustering
+
+Based on the Elbow method, choose the optimal number of clusters, k = 4.
+
+```{r kmeans-clustering}
+set.seed(123)
+k <- 4  # Optimal number of clusters
+km_res <- kmeans(numeric_vars_scaled, centers = k, nstart = 25)
+
+# Add cluster assignments to the data
+state_data <- state_data %>%
+  mutate(Cluster = factor(km_res$cluster))
+
+```
+
+## Visualisation
+
+### Cluster Visualisation
+
+Visualise the clusters using Principal Component Analysis (PCA).
+
+```{r visualise-cluster}
+# Perform PCA
+pca_res <- prcomp(numeric_vars_scaled)
+
+# Plot PCA with clusters
+fviz_pca_ind(pca_res,
+             geom.ind = "point",
+             col.ind = state_data$Cluster,
+             palette = "jco",
+             addEllipses = TRUE,
+             legend.title = "Cluster")
+
+```
+
+### Cluster Profiles
+
+Examine the characteristics of each cluster.
+
+```{r cluster-profiles}
+# Calculate mean of variables by cluster
+cluster_profiles <- numeric_vars %>%
+  mutate(Cluster = state_data$Cluster) %>%
+  group_by(Cluster) %>%
+  summarise(across(everything(), mean))
+
+# View cluster profiles
+print(cluster_profiles)
+
+```
+
+## Identify States in Each Cluster
+
+To better understand these clusters, I find out which states belong
+to each cluster.
+
+```{r cluster-states}
+# List states per cluster
+states_in_clusters <- state_data %>%
+  select(State, Cluster) %>%
+  arrange(Cluster)
+
+print(states_in_clusters)
+#write_csv(states_in_clusters, "states_in_clusters.csv")
+```
+
+## Geographical Mapping
+
+Plot the clusters on a map.
+
+```{r cluster-mapping}
+library(usmap)
+library(dplyr)
+
+# Ensure state names match with state_data
+state_data_map <- state_data %>%
+  mutate(state = State)  # Ensure the column is named 'state'
+
+# Plot the clusters on the US map
+plot_usmap(data = state_data_map, values = "Cluster", regions = "states") +
+  scale_fill_discrete(name = "Cluster") +
+  labs(title = "US States Clustered by Characteristics") +
+  theme(legend.position = "right")
+
+```
+
+## Summarizing the Clusters
+
+Cluster 1: High Crime, High Income, Low Urbanisation States
+
+-   Included: Alaska
+
+-   Characteristics:
+
+    -   High crime rates despite high income levels: Highest average
+        values for Murder, Assault, and Rape rates. Highest average
+        income among clusters.
+
+    -   Low urban population percentages: Relatively low at 48%,
+        suggesting more rural areas.
+
+    -   Large areas: Larger average area than other clusters
+
+    -   Colder climates: Highest average number of frost days
+
+-   Possible Reasons: Sparse law enforcement coverage, resource-based
+    economies, remote locations.
+
+Cluster 2: Low Crime, High Education, Moderate Urbanisation States
+
+-   Included: Midwestern or Northern states like Minnesota, Iowa, and
+    others, Connecticut, Delaware, Hawaii, Idaho, Indiana, Kansas,
+    Maine, Massachusetts, Montana, Nebraska, New Hampshire, North
+    Dakota, Oklahoma, Oregon, Rhode Island, South Dakota, Utah, Vermont,
+    Washington, Wisconsin, Wyoming
+
+-   Characteristics:
+
+    -   Low crime rates: Lowest average values for Murder, Assault, and
+        Rape rates
+
+    -   High education levels: Highest HS Grad rates and lowest average
+        illiteracy rate.
+
+    -   Higher life expectancy: Highest Life Exp.
+
+    -   Moderate income
+
+-   Possible Reasons: Strong education systems, community cohesion,
+    effective social policies.
+
+Cluster 3: High Population, Urban States States
+
+-   Included: Arizona, California, Colorado, Florida, Illinois,
+    Maryland, Michigan, Missouri, Nevada, New Jersey, New York, Ohio,
+    Pennsylvania, Texas, Virginia
+
+-   Characteristics:
+
+    -   High urban populations: Highest percentage of urban population.
+
+    -   Higher crime rates associated with urban areas: High averages
+        for Murder and Assault rates.
+
+    -   Large populations: Highest population size
+
+-   Possible Reasons: Urban challenges like congestion, socio-economic
+    disparities, higher cost of living.
+
+Cluster 4: High Crime, Low Income, Low Education States
+
+-   Included: Southern states like Mississippi, Louisiana, and others,
+    Alabama, Arkansas, Georgia, Kentucky, New Mexico, North Carolina,
+    South Carolina, Tennessee, West Virginia
+
+-   Characteristics:
+
+    -   Highest murder rates: Even higher than Cluster 1.
+
+    -   Low income: Lowest average income.
+
+    -   Low education levels: Lowest average HS Grad rates, highest
+        illiteracy rate.
+
+    -   Warmer climates: Lowest average number of frost days.
+
+-   Possible Reasons: Historical socio-economic challenges, systemic
+    issues, lack of access to quality education and healthcare.
+
+# What factors are statistically significant in predicting Assault rates?
+
+In this section, I aim to identify the factors that are statistically
+significant in predicting Assault rates using the datasets provided.
+
+## Data Preparation
+
+I'll prepare the data by merging the datasets.
+
+```{r merge-dataset2}
+# Merge datasets
+assault_data <- inner_join(USArrest, USstatex77, by = "State")
+
+# View the first few rows
+head(assault_data)
+
+```
+
+## Exploring the Data
+
+Before building the model, explore the data to understand the
+relationships between variables.
+
+### Summary Statistics
+
+```{r summary-stats}
+# Summary of the data
+summary(assault_data)
+
+```
+
+### Correlation Matrix
+
+The correlation matrix shows how each variable is linearly related to
+the others.
+
+High correlation between independent variables may indicate
+multicollinearity, which can affect the regression model.
+
+```{r correlation-matrix}
+# Select numeric variables for correlation analysis
+numeric_vars <- assault_data %>%
+  select(-State)
+
+# Compute correlation matrix
+cor_matrix <- cor(numeric_vars)
+
+# Plot the correlation matrix
+ggcorrplot(cor_matrix, lab = TRUE, type = "lower",
+           title = "Correlation Matrix of Variables")
+
+```
+
+Highly Correlated Variables:
+
+-   Murder.x and Murder.y: Correlation = 0.93 (These are highly
+    correlated and likely redundant)
+
+-   Murder.x and Assault: Correlation = 0.80 (These two variables are
+    strongly correlated)
+
+-   Murder.x and Illiteracy: Correlation = 0.71 (Another strong
+    correlation)
+
+-   Illiteracy and Murder.y: Correlation = 0.70 (Strong correlation)
+
+Moderately Correlated Variables:
+
+-   Assault and Rape: Correlation = 0.66 (Moderate correlation)
+
+-   Assault and Murder.y: Correlation = 0.74 (High correlation)
+
+-   HS Grad and Income: Correlation = 0.62 (This is moderate but may
+    still be manageable in a model.)
+
+Variables with Lower Correlation:
+
+-   UrbanPop and other variables: Most correlations involving UrbanPop
+    are relatively low (under 0.5), so it can be a good candidate to
+    include without multicollinearity concerns.
+
+-   Life Exp and Population: Correlation = -0.07 (Low correlation. These
+    variables might independently contribute to the model.)
+
+## Building the Regression Model
+
+I will build a multiple linear regression model with Assault as the
+dependent variable and other variables as predictors.
+
+Based on the correlation matrix, the selection of variables for the
+regression model are:
+
+-   Murder.x (chose it over Murder.y)
+
+-   UrbanPop (low correlations, can provide unique information)
+
+-   Rape (moderate correlations, but not highly collinear with others)
+
+-   HS Grad (moderate correlation with Income, but could be useful)
+
+-   Life Exp (lower correlations with others)
+
+### Initial Model
+
+In regression analysis, the F-statistic tests the null hypothesis that
+none of the independent variables in the model have any effect on the
+dependent variable. The alternative hypothesis is that at least one of
+the independent variables has a significant effect on the dependent
+variable.
+
+The summary output shows the coefficients, standard errors, t-values,
+and p-values for each predictor.
+
+Variables with p-values less than 0.05 are considered statistically
+significant at the 5% significance level.
+
+```{r regression-model}
+# Fit the initial regression model
+model_initial <- lm(Assault ~ Murder.x + UrbanPop + Rape + `Life Exp`  + `HS Grad`,
+                    data = assault_data)
+
+# View the summary of the model
+summary(model_initial)
+
+```
+
+Summary of Initial Regression Model:
+
+-   A p-value of 6.082e-12 is very close to zero, meaning the chance of
+    this F-statistic happening by random chance is exceedingly small
+    (about 0.0000000006%). This level of significance indicates very
+    strong evidence that the model as a whole is statistically
+    significant. And rejecting the null hypothesis and conclude that at
+    least one of the predictors significantly influences the dependent
+    variable (Assault).
+
+-   The variable "Murder.x" is a significant predictor of "Assault" at
+    the 5% level (p-value = 0.0476). For every unit increase in
+    "Murder.x", "Assault" increases by an estimated 8.19 units.
+
+-   "UrbanPop" and "Life Exp" are marginally significant (p-values near
+    0.05). For every unit increase in "UrbanPop", "Assault" increases by
+    1.10 units. For every unit increase in life expectancy, "Assault"
+    decreases by 17.76 units.
+
+-   "Rape" is not significant at the 5% level but might be considered at
+    the 10% level. For every unit increase in "Rape", "Assault"
+    increases by 2.34 units.
+
+-   "HS Grad" is not significant.
+
+## Checking for Multicollinearity
+
+High multicollinearity can inflate the variance of coefficient
+estimates.
+
+A VIF value greater than 5 (or 10) indicates high multicollinearity.
+
+Variables with high VIF may need to be removed or combined.
+
+```{r multicollinearity-vif}
+# Calculate Variance Inflation Factor (VIF)
+vif_values <- vif(model_initial)
+print(vif_values)
+
+```
+
+VIF Result:
+
+-   Murder.x has a high VIF (7.53), indicating that it's causing
+    significant multicollinearity in the model. I am removing it,
+    especially since it's highly correlated with other variables like
+    Murder.y and Assault.
+
+-   The other variables (UrbanPop, Rape, Life Exp, HS Grad) have
+    acceptable VIFs and can remain in the model.
+
+## Refining the Model
+
+Based on the initial model and VIF values, I'll refine the model by
+removing variables that are not significant or cause multicollinearity.
+
+```{r refined-model}
+# Remove variables with high VIF or insignificant p-values
+model_refined <- lm(Assault ~ UrbanPop + Rape + `Life Exp` + `HS Grad`,
+                    data = assault_data)
+
+# View the summary of the refined model
+summary(model_refined)
+
+```
+
+Summary of Refined Regression Model:
+
+-   The model remains statistically significant overall.
+
+-   UrbanPop, Rape, and Life Exp are significant predictors of
+    "Assault."
+
+-   HS Grad has a negative coefficient, indicating a possible inverse
+    relationship with "Assault," but it is not statistically significant
+    in this model.
+
+## Final Model
+
+After further refinement, I arrive at the final model.
+
+The final model includes only variables that are statistically
+significant predictors of Assault, thus removed 'HS Grad' variable.
+
+Coefficients indicate the direction and magnitude of the relationship
+between predictors and Assault.
+
+```{r final-model}
+# Final model after removing non-significant variables
+model_final <- lm(Assault ~ UrbanPop + Rape + `Life Exp`,
+                  data = assault_data)
+
+# View the summary of the final model
+summary(model_final)
+
+```
+
+Summary of Final Regression Model:
+
+-   HS Grad was not a significant predictor in the previous model, and
+    its removal has not significantly weakened the explanatory power of
+    the model (R-squared dropped slightly).
+
+-   The significance of the remaining predictors (UrbanPop, Rape, and
+    Life Exp) has been maintained, with Life Exp becoming an even
+    stronger predictor.
+
+-   The Residual Standard Error has increased slightly, indicating a
+    marginal decrease in the model’s predictive accuracy after removing
+    HS Grad.
+
+-   Overall, the model is still very strong and significant, but the
+    slight decline in R-squared and the increase in residual standard
+    error suggest that HS Grad might have contributed some predictive
+    value, even if it wasn’t statistically significant.
+
+## Checking for Multicollinearity Again
+
+```{r multicollinearity-vif2}
+# Calculate VIF for the final model
+vif_final <- vif(model_final)
+print(vif_final)
+
+```
+
+VIF Result:
+
+-   UrbanPop, Rape and Life Exp have VIF values below 5, indicating
+    acceptable multicollinearity.
+
+## Model Diagnostics
+
+### Residual Analysis
+
+I need to check if the model meets the assumptions of linear regression.
+
+```{r residual-analysis}
+# Plot residuals vs fitted values
+plot(model_final$fitted.values, model_final$residuals,
+     xlab = "Fitted Values", ylab = "Residuals",
+     main = "Residuals vs Fitted Values")
+abline(h = 0, col = "red")
+
+# Normal Q-Q plot
+qqnorm(model_final$residuals)
+qqline(model_final$residuals, col = "red")
+
+```
+
+Residual Analysis Result:
+
+-   Residuals vs Fitted Plot: Points are randomly scattered around zero
+    without any clear patterns, suggests that the model fits the data
+    well, with no obvious signs of heteroscedasticity or non-linearity.
+
+-   Normal Q-Q Plot: Points roughly fall along the diagonal line,
+    suggest residuals are largely normally distributed, supports the
+    assumption of normality.
+
+## Interpreting the Model Coefficients
+
+```{r tidy-model}
+# Tidy the model output for easier interpretation
+tidy_model <- tidy(model_final)
+print(tidy_model)
+
+```
+
+# Conclusion
+
+I have identified that Urban Population percentage, Rape rate, Life
+Expectancy are statistically significant factors in predicting Assault
+rates among US states. These findings suggest that areas with higher
+rape rates and urban populations, as well as low life expectancy tend to
+have higher assault rates.
+
+-   An increase in the rate of rape is associated with an increase in
+    the assault rate. Every unit increase in the rape rate, the assault
+    rate is predicted to increase by 3.59 units.
+
+-   Higher urban population percentages tend to have higher assault
+    rates. Every increase in the urban population, the assault rate
+    increases by 1.45 units.
+
+-   Lower life expectancy tend to have higher assault rates. For every
+    one-year decrease in life expectancy, the assault rate is predicted
+    to increase by 36.40 units.

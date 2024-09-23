@@ -1,4 +1,4 @@
-# Company ABC - Data Quality Management and Staff Dashboard Visualisation
+# Company ABC: Data Quality Management and Staff Dashboard Visualisation
 
 This is a data analysis assessment assigned to me for a job position with a Singapore public agency.
 

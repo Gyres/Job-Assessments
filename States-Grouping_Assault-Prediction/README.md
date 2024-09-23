@@ -4,7 +4,7 @@
 
 This data analysis assessment was assigned as part of a job application with a Singapore public agency.
 
-The assessment includes 8 datasets and 3 data dictionaries that may be utilised for analysis.
+The assessment includes 8 datasets and 3 data dictionaries of US States, that may be utilised for analysis.
 
 The analysis is divided into two sections:
 

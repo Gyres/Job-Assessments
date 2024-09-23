@@ -1,6 +1,6 @@
 # Compute Average Monthly Wage
 
-### Date: 2024-09-18
+#### Date: 2024-09-18
 
 This is a data analysis assessment assigned to me for a job position with a Singapore public agency.
 

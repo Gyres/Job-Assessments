@@ -1,3 +1,5 @@
+# Company ABC - Data Quality Management and Staff Dashboard Visualisation
+
 This is a data analysis assessment assigned to me for a job position with a Singapore public agency.
 
 Company ABC has supplied 22 datasets containing the following variables: When, Profile, Dept, and CardNum. Each record represents a staff member tapping their access pass at the building’s entry system at a specific time.

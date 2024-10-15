@@ -133,7 +133,7 @@ Data-Quality_Staff-Dashboard/
 
 ## License
 
-This project is intended for submission as part of a technical assessment. The content and code are not intended for public or commercial use without explicit permission from the Author.
+This project is intended for submission as part of a technical assessment. The content and code are not intended for public distribution, reproduction, or commercial use without explicit permission from the Author.
 
 ---
 

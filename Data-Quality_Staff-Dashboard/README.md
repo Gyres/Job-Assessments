@@ -66,10 +66,10 @@ install.packages(c("tidyverse", "lubridate", "flexdashboard", "plotly"))
 2. Open Data-Quality_Staff-Dashboard.Rmd file from within RStudio.
 3. Knit the file to generate an HTML report. Alternatively, run the code chunks sequentially to reproduce the analysis.
 4. The dashboard will generate:
-- Daily percentage of staff working from home.
-- Histogram showing staff attendance patterns per week.
-- Time slot distribution of staff arrivals.
-- Bar chart of visitor and temporary pass usage across office sites.
+   - Daily percentage of staff working from home.
+   - Histogram showing staff attendance patterns per week.
+   - Time slot distribution of staff arrivals.
+   - Bar chart of visitor and temporary pass usage across office sites.
 
 The combined dashboard is available on Tableau Public, https://public.tableau.com/views/ABC-Staff-Dashboard/Dashboard
 
@@ -106,12 +106,15 @@ The combined dashboard is available on Tableau Public, https://public.tableau.co
 ## Results
 **Findings**
 - 80% Work-from-Home Target: Achieved on most days based on access logs.
+- Work-from-Office Patterns: Most Staff come into office at least once per week.
 - Time Slot Distribution: Most staff arrive between 7:00 and 9:29 AM.
 - Visitor Pass Insights: More visitor passes issued at Site A.
 
 **Visualisations**
 1. Daily Work-from-Home Percentage
-2. Arrival Time Slot Distribution
+2. Number of days Staff Work-from-Office per week Distribution
+3. Arrival Time Slot Distribution
+4. Number of Temporary and Visitor Pass by Site
 
 ---
 

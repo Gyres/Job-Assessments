@@ -33,8 +33,17 @@ The goal was to demonstrate analytical and statistical skills, including cluster
 - R version 4.0+  
 - RStudio 
 
-**Dependencies:**
+<!--
+**Environment Setup:**
+1. Clone this repository:
+    ```bash
+    git clone https://github.com/your-username/Job-Assessments.git
+    cd Job-Assessments/States-Grouping_Assault-Prediction
+    ```
+2. Open the RStudio project or .Rmd file in the States-Grouping_Assault-Prediction folder.
+-->
 
+**Dependencies:**
 Install the required R libraries by running the following in R:
 
 ```r

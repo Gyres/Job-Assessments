@@ -15,3 +15,37 @@ The objective is to compute the average monthly wage for companies of different 
 
 ## Pseudo Code & Implementation
 The pseudo code for calculating the average monthly wage by company size is implemented in RMarkdown. You can view the Rmd file, "Calc-Avg-Mthly-Wage.Rmd".
+<!--
+---
+
+# Compute Average Monthly Wage for Companies of Different Sizes
+
+#### Date: 2024-09-18
+
+## Introduction  
+**Brief Overview**
+This project involves data analysis to compute the average monthly wage paid by companies of varying sizes. Using two provided datasets, containing company information and employee monthly wages, this analysis categorises firms based on revenue and calculates the average wages.
+
+This project is to fulfill a data analysis assessment assigned as part of a job application process for a Singapore public agency. The aim is to demonstrate the ability to manage data, analyze patterns, and draw insights that are relevant to policymaking.
+
+**Objectives**  
+The main objectives of this analysis are:
+1. To determine the average monthly wage paid by companies of different sizes.
+2. To apply data processing techniques to effectively merge and analyse data from separate datasets.
+
+---
+
+## Table of Contents  
+1. [Introduction](#introduction)  
+2. [Installation](#installation)  
+3. [Usage](#usage)  
+4. [Data](#data)  
+5. [Methodology](#methodology)  
+6. [Results](#results)  
+7. [Project Structure](#project-structure)  
+8. [License](#license)   
+9. [Contact Information](#contact-information)
+
+---
+
+-->

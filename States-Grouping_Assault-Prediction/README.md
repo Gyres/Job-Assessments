@@ -56,7 +56,7 @@ install.packages(c("tidyverse", "cluster", "factoextra", "broom", "car", "ggcorr
 **Instructions:**
 1. Access [States_Grouping_Assault_Prediction.md](States-Grouping_Assault-Prediction.md) to view the pre-run analysis.
 
-  or
+    or
 
 2. Download the folder, States_Grouping_Assault_Prediction.
 3. Open States_Grouping_Assault_Prediction.Rmd in RStudio.

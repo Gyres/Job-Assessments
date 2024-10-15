@@ -2,7 +2,7 @@
 
 #### Date: 2024-09-19
 
-## 1. Introduction
+## Introduction
 
 ### Brief Overview
 This project focuses on organising and cleaning access data from Company ABC and developing an interactive dashboard to monitor staff attendance patterns. The dashboard provides insights into staff working from home, office arrival time slots, and visitor access trends, supporting informed decision-making.
@@ -19,7 +19,7 @@ This project was developed in response to a technical assessment for a job role 
 
 ---
 
-## 2. Table of Contents
+## Table of Contents
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -27,14 +27,12 @@ This project was developed in response to a technical assessment for a job role 
 - [Methodology](#methodology)
 - [Results](#results)
 - [Project Structure](#project-structure)
-- [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
 - [Contact Information](#contact-information)
 
 ---
 
-## 3. Installation
+## Installation
 
 ### Prerequisites
 - R (version 4.0 or higher)

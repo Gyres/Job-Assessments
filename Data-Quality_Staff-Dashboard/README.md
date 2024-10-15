@@ -1,72 +1,141 @@
-# Data Quality Management and Staff Dashboard Visualisation
+# Data Quality and Staff Dashboard Visualisation
 
 #### Date: 2024-09-19
 
-This project presents a technical solution for a data analysis assessment for a job position at a Singapore public agency. The task focuses on **processing access data, addressing data quality issues**, and **creating interactive dashboards** to monitor and analyse staff attendance patterns and remote work targets.
+## 1. Introduction
 
-## Table of Contents
-- [Overview](#overview)  
-- [Data Preparation](#data-preparation)  
-- [Dashboard Insights](#dashboard-insights)  
-- [Code Structure](#code-structure)  
-- [Assumptions](#assumptions)  
-- [License](#license)
-<!--- [How to Use](#how-to-use)  -->
+### Brief Overview
+This project focuses on organising and cleaning access data from Company ABC and developing an interactive dashboard to monitor staff attendance patterns. The dashboard provides insights into staff working from home, office arrival time slots, and visitor access trends, supporting informed decision-making.
+
+This project was developed in response to a technical assessment for a job role with a Singapore public agency. The goal is to clean and manage data, identify quality issues, and create effective visualisations for tracking key metrics.
+
+### Objectives
+1. Clean and process raw data from access logs to ensure data quality.
+2. Develop a scalable data ingestion solution for future datasets.
+3. Create a dashboard that provides insights into:
+   - Staff working-from-home trends.
+   - Distribution of staff arrival times.
+   - Visitor and temporary pass usage across office sites.
+
 ---
 
-## Overview
-The purpose of this project is to:
-1. **Process and clean** the building access data provided by Company ABC.
-2. **Identify data quality issues** and implement fixes to ensure the data is ready for analysis.
-3. **Create visual dashboards** that help monitor:
-   - Percentage of staff working from home.
-   - Distribution of staff attendance across time slots.
-   - Issuance of temporary and visitor passes at different office sites.
+## 2. Table of Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Data](#data)
+- [Methodology](#methodology)
+- [Results](#results)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contact Information](#contact-information)
 
-## Data Preparation
-- **Datasets**: This project uses 22 CSV files representing building access logs and a data dictionary.
-- **Data Quality Checks**:  
-  - Correcting column names and formats.
-  - Handling missing or invalid values.
-  - Removing duplicate entries (keeping only the earliest entry per day).
-  - Ensuring numeric consistency for card numbers.
+---
 
-The processed dataset will allow future ingestion of new data without requiring significant rework.
+## 3. Installation
 
-## Dashboard Insights
-The dashboard provides actionable insights in three key areas:
-1. **Staff Working from Home**:
-   - Tracks daily percentages of employees working remotely to meet a target of 80%.
-2. **Staff Attendance Patterns**:
-   - Monitors the number of days staff come into the office each week.
-   - Analyses arrival time slots to ensure an even distribution across:
-     - **07:00 – 08:29**
-     - **08:30 – 09:29**
-     - **09:30 – 10:30**
-3. **Visitor and Temporary Pass Usage**:
-   - Visualises the number of Temp and Visitor pass holders at each office site.
+### Prerequisites
+- R (version 4.0 or higher)
+- RStudio
+
+<!--
+**Environment Setup:**
+1. Clone this repository:
+    ```bash
+    git clone https://github.com/Gyres/Job-Assessments.git
+    cd Job-Assessments/Data-Quality_Staff-Dashboard
+    ```
+2. Open Data-Quality_Staff-Dashboard.Rmd in RStudio.
+-->
+
+**Dependencies:**
+Install the required R packages:
+
+```r
+install.packages(c("tidyverse", "lubridate", "flexdashboard", "plotly"))
+```
+
+---
+
+## Usage
+**Instructions:**
+1. Access [Data-Quality_Staff-Dashboard.md](Data-Quality_Staff-Dashboard.md) to view the pre-run analysis.
+
+    or
+
+2. Open Data-Quality_Staff-Dashboard.Rmd file from within RStudio.
+3. Knit the file to generate an HTML report. Alternatively, run the code chunks sequentially to reproduce the analysis.
+4. The dashboard will generate:
+- Daily percentage of staff working from home.
+- Histogram showing staff attendance patterns per week.
+- Time slot distribution of staff arrivals.
+- Bar chart of visitor and temporary pass usage across office sites.
 
 The combined dashboard is available on Tableau Public, https://public.tableau.com/views/ABC-Staff-Dashboard/Dashboard
 
-## Code Structure
-The following files are included in this repository:
+---
 
+## Data
+**Data Sources**
+- **Access_data:** Provided by Company ABC, containing access logs of two office sites.
+
+**Data Description**
+- **When:** Timestamp of access.
+- **Profile:** Type of pass (Staff, Temp, Visitor).
+- **Dept:** Department name.
+- **CardNum:** Unique identifier for staff.
+
+**Data Processing**
+1. Corrected column names and removed unnecessary spaces.
+2. Replaced missing values and handled invalid data formats.
+3. Filtered data to keep only the first entry per day for each individual.
+
+---
+
+## Methodology
+**Techniques Used**
+- Data cleaning and wrangling using tidyverse.
+- Dashboard creation with flexdashboard and plotly.
+
+**Tools**
+- RStudio for development and testing.
+- R for data manipulation and visualisation.
+
+---
+
+## Results
+**Findings**
+- 80% Work-from-Home Target: Achieved on most days based on access logs.
+- Time Slot Distribution: Most staff arrive between 7:00 and 9:29 AM.
+- Visitor Pass Insights: More visitor passes issued at Site A.
+
+**Visualisations**
+1. Daily Work-from-Home Percentage
+2. Arrival Time Slot Distribution
+
+---
+
+## Project Structure
 ```bash
-Job-Assessments/
+Data-Quality_Staff-Dashboard/
 │
-└── Data-Quality_Staff-Dashboard/
-    ├── Data-Quality-Staff-Dashboard.md                     # Markdown file containing the code, plots and explanations
-    ├── Data-Quality-Staff-Dashboard.Rmd                    # R Markdown file containing the code and explanations
-    ├── Access_data/                                        # Directory containing CSV files for building access logs
-    ├── Data-Quality-Staff-Dashboard_files/figure-gfm/      # Directory to store generated plots
-    └── README.md                                           # This README file
+├── README.md                                        # Project overview and instructions
+├── Data-Quality_Staff-Dashboard.md                  # Main analysis report
+├── Data-Quality_Staff-Dashboard.Rmd                 # Main analysis script
+├── Access_data/                                     # Directory containing CSV files for building access logs
+└── Data-Quality-Staff-Dashboard_files/figure-gfm/   # Directory to store generated plots
 ```
 
-## Assumptions
-- Only the first tap-in entry per day is considered for attendance analysis.
-- Invalid card numbers (e.g., `#REF!` or `#VALUE!`) are replaced with `Unknown`.
-- Missing department names are labeled as `Dept Unknown`.
-- All Temp and Visitor pass holders are treated equally across the sites.
+---
 
 ## License
-This project is intended for submission as part of a technical assessment. The content and code are not intended for public or commercial use without explicit permission.
+
+This project is intended for submission as part of a technical assessment. The content and code are not intended for public or commercial use without explicit permission from the Author.
+
+---
+
+## Contact Information
+
+**Author:** Ou Yang Yu

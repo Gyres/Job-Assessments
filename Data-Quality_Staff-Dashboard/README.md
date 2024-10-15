@@ -16,7 +16,7 @@ This project presents a technical solution for a data analysis assessment for a 
 
 ## Overview
 The purpose of this project is to:
-1. **Process and clean** the building access data provided by Company ABC.
+1. **Process and clean** the building access data provided by Company XYZ.
 2. **Identify data quality issues** and implement fixes to ensure the data is ready for analysis.
 3. **Create visual dashboards** that help monitor:
    - Percentage of staff working from home.
@@ -55,9 +55,9 @@ The following files are included in this repository:
 Job-Assessments/
 │
 └── Data-Quality_Staff-Dashboard/
-    ├── Data-Quality-Staff-Dashboard.md                     # R Markdown file containing the code and explanations
+    ├── Data-Quality-Staff-Dashboard.md                     # Markdown file containing the code, plots and explanations
     ├── Data-Quality-Staff-Dashboard.Rmd                    # R Markdown file containing the code and explanations
-    ├── Access_data/                                        # Sample access data files (CSV format)
+    ├── Access_data/                                        # Directory containing CSV files for building access logs
     ├── Data-Quality-Staff-Dashboard_files/figure-gfm/      # Directory to store generated plots
     └── README.md                                           # This README file
 ```

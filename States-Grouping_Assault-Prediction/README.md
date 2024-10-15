@@ -110,10 +110,10 @@ States-Grouping_Assault-Prediction/
 ```
 
 **Key Files:**
-**States_Grouping_Assault_Prediction.md:** The main Markdown report with analysis, viewable directly on GitHub.
-**States_Grouping_Assault_Prediction.Rmd:** The main R Markdown file containing the analysis.
-**US_Arrest_Data/:** Folder containing the input datasets.
-**States-Grouping_Assault-Prediction_files/figure-gfm/:** Folder to store generated outputs (e.g., reports, tables).
+- **States_Grouping_Assault_Prediction.md:** The main Markdown report with analysis, viewable directly on GitHub.
+- **States_Grouping_Assault_Prediction.Rmd:** The main R Markdown file containing the analysis.
+- **US_Arrest_Data/:** Folder containing the input datasets.
+- **States-Grouping_Assault-Prediction_files/figure-gfm/:** Folder to store generated outputs (e.g., reports, tables).
 
 ---
 

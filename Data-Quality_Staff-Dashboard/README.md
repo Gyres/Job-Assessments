@@ -16,7 +16,7 @@ This project presents a technical solution for a data analysis assessment for a 
 
 ## Overview
 The purpose of this project is to:
-1. **Process and clean** the building access data provided by Company XYZ.
+1. **Process and clean** the building access data provided by Company ABC.
 2. **Identify data quality issues** and implement fixes to ensure the data is ready for analysis.
 3. **Create visual dashboards** that help monitor:
    - Percentage of staff working from home.
@@ -39,12 +39,12 @@ The dashboard provides actionable insights in three key areas:
    - Tracks daily percentages of employees working remotely to meet a target of 80%.
 2. **Staff Attendance Patterns**:
    - Monitors the number of days staff come into the office each week.
-   - Analyzes arrival time slots to ensure an even distribution across:
+   - Analyses arrival time slots to ensure an even distribution across:
      - **07:00 – 08:29**
      - **08:30 – 09:29**
      - **09:30 – 10:30**
 3. **Visitor and Temporary Pass Usage**:
-   - Visualizes the number of Temp and Visitor pass holders at each office site.
+   - Visualises the number of Temp and Visitor pass holders at each office site.
 
 The combined dashboard is available on Tableau Public, https://public.tableau.com/views/ABC-Staff-Dashboard/Dashboard
 

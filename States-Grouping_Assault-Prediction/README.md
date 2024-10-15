@@ -45,7 +45,7 @@ install.packages(c("tidyverse", "cluster", "factoextra", "broom", "car", "ggcorr
 
 ## Usage
 **Instructions:**
-1. Access [States_Grouping_Assault_Prediction.md](States-Grouping_Assault-Prediction.md) to access the pre-run code to view the analysis.
+1. Access [States_Grouping_Assault_Prediction.md](States-Grouping_Assault-Prediction.md) to view the pre-run analysis.
 
   or
 

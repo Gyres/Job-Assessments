@@ -48,4 +48,11 @@ The main objectives of this analysis are:
 
 ---
 
+## Installation
+**Prerequisites**
+- R version 4.0 or higher
+- RStudio
+
+Evironment Setup
+
 -->

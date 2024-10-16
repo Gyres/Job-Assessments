@@ -18,41 +18,50 @@ The pseudo code for calculating the average monthly wage by company size is impl
 <!--
 ---
 
-# Compute Average Monthly Wage for Companies of Different Sizes
+# Compute Average Monthly Wage by Firm Size
 
 #### Date: 2024-09-18
 
 ## Introduction  
 **Brief Overview**
-This project involves data analysis to compute the average monthly wage paid by companies of varying sizes. Using two provided datasets, containing company information and employee monthly wages, this analysis categorises firms based on revenue and calculates the average wages.
+This project aims to compute the average monthly wage paid by companies of different sizes using R. The analysis uses two datasets: one containing company information and another containing employee wage data. The R Markdown (RMD) code is structured to read the datasets, classify firms by size, and compute the average monthly wage for each firm size.
 
-This project is to fulfill a data analysis assessment assigned as part of a job application process for a Singapore public agency. The aim is to demonstrate the ability to manage data, analyze patterns, and draw insights that are relevant to policymaking.
+This project was undertaken as part of a job application assessment for a data analyst position with a Singapore public agency. It demonstrates data analysis and manipulation skills using R, focusing on calculating company-wise wage statistics.
 
 **Objectives**  
-The main objectives of this analysis are:
-1. To determine the average monthly wage paid by companies of different sizes.
-2. To apply data processing techniques to effectively merge and analyse data from separate datasets.
+- Compute the average monthly wage based on firm size (small, medium, large).
+- Merge two datasets (companies and employees) for analysis.
+- Provide a clean and reproducible workflow using R Markdown.
 
 ---
 
 ## Table of Contents  
-1. [Introduction](#introduction)  
-2. [Installation](#installation)  
-3. [Usage](#usage)  
-4. [Data](#data)  
-5. [Methodology](#methodology)  
-6. [Results](#results)  
-7. [Project Structure](#project-structure)  
-8. [License](#license)   
-9. [Contact Information](#contact-information)
+- [Introduction](#introduction)  
+- [Installation](#installation)  
+- [Usage](#usage)  
+- [Data](#data)  
+- [Methodology](#methodology)  
+- [Results](#results)  
+- [Project Structure](#project-structure)  
+- [License](#license)   
+- [Contact Information](#contact-information)
 
 ---
 
 ## Installation
-**Prerequisites**
-- R version 4.0 or higher
+**Prerequisites:**
+- R (version 4.0 or above)
 - RStudio
 
-Evironment Setup
+**Evironment Setup:**
+1. Install R from the CRAN website.
+2. Install RStudio from RStudio website.
+3. Ensure that you have the following R packges installed:
+```r
+install.packages("tidyverse")
+```
+
+**Dependencies:**
+- `tidyverse`: A collection of R packages for data manipulation and visualization.
 
 -->

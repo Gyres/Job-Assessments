@@ -112,8 +112,8 @@ install.packages(c("tidyverse", "cluster", "factoextra", "broom", "car", "ggcorr
 States-Grouping_Assault-Prediction/
 │
 ├── README.md                                              # Project overview and instructions
-├── States_Grouping_Assault_Prediction.md                  # Main analysis report
-├── States_Grouping_Assault_Prediction.Rmd                 # Main analysis script
+├── States-Grouping_Assault-Prediction.md                  # Main analysis report
+├── States-Grouping_Assault-Prediction.Rmd                 # Main analysis script
 ├── US_Arrest_Data/                                        # Data files (e.g., USArrest.csv, USstatex77.csv)
 └── States-Grouping_Assault-Prediction_files/figure-gfm/   # Visuals used in the report
 ```

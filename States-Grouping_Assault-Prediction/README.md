@@ -54,7 +54,7 @@ install.packages(c("tidyverse", "cluster", "factoextra", "broom", "car", "ggcorr
 
 ## Usage
 **Instructions:**
-1. Access [States_Grouping_Assault_Prediction.md](States-Grouping_Assault-Prediction.md) to view the pre-run analysis.
+1. Access [States-Grouping_Assault-Prediction.md](States-Grouping_Assault-Prediction.md) to view the pre-run analysis.
 
     or
 
@@ -119,8 +119,8 @@ States-Grouping_Assault-Prediction/
 ```
 
 **Key Files:**
-- **States_Grouping_Assault_Prediction.md:** The main Markdown report with analysis, viewable directly on GitHub.
-- **States_Grouping_Assault_Prediction.Rmd:** The main R Markdown file containing the analysis.
+- **States-Grouping_Assault-Prediction.md:** The main Markdown report with analysis, viewable directly on GitHub.
+- **States-Grouping_Assault-Prediction.Rmd:** The main R Markdown file containing the analysis.
 - **US_Arrest_Data/:** Folder containing the input datasets.
 - **States-Grouping_Assault-Prediction_files/figure-gfm/:** Folder to store generated outputs (e.g., reports, tables).
 

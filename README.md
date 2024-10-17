@@ -131,5 +131,3 @@ This repository and its projects are intended for submission as part of technica
 
 ## Contact Information
 **Author:** Ou Yang Yu
-
-If you have any questions or need further information, please feel free to contact me.

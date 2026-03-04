@@ -126,12 +126,6 @@ States-Grouping_Assault-Prediction/
 
 ---
 
-## License
-
-This project is intended for submission as part of a technical assessment. The content and code are not intended for public distribution, reproduction, or commercial use without explicit permission from the Author.
-
----
-
 ## Contact Information
 
 **Author:** Ou Yang Yu

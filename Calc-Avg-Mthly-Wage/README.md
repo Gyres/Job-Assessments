@@ -107,8 +107,5 @@ Calc-Avg-Mthly-Wage/
 - **Calc-Avg-Mthly-Wage.Rmd:** The R Markdown file containing the code for data analysis.
 - **README.md:** This document, providing details on how to use and understand the project.
 
-## License
-This project is intended for submission as part of a technical assessment. The content and code are not intended for public distribution, reproduction, or commercial use without explicit permission from the Author.
-
 ## Contact Information
 - **Author:** Ou Yang Yu

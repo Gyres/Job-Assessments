@@ -126,8 +126,5 @@ Job-Assessments/
 └── README.md  # This file
 ```
 
-## License
-This repository and its projects are intended for submission as part of technical assessments. The content and code are not intended for public distribution, reproduction, or commercial use without explicit permission from the author.
-
 ## Contact Information
 **Author:** Ou Yang Yu
